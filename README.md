@@ -95,7 +95,7 @@ curl --location 'http://localhost:3000/auth/login' \
 
 3. By clicking or call the magic link (you can use postman or similar tools for this), the callback endpoint will authenticate the user and generate a JWT access token.
 
-4. The user can then use the JWT to access protected routes in the application. example: `/protected` (http://localhost:3030/protected)
+4. The user can then use the JWT to access protected routes in the application. example: `/protected` (http://localhost:3000/protected)
 
 
 
