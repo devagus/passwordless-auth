@@ -24,8 +24,34 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository. 
-Content: Passwordless authentication implementation using magic links.
+### Magic Login Authentication in NestJS
+
+This project demonstrates how to implement Magic Login authentication in a NestJS application. Magic Login authentication provides a passwordless login experience by sending a unique time-limited link.
+
+# Features
+  -  Passwordless login using Magic Links
+  -  Token-based authentication
+  -  JWT-protected routes
+
+# Packages
+- passport 
+- passport-magic-login (see more: https://www.passportjs.org/packages/passport-magic-login/)
+- passport-jwt
+- class-validator 
+
+# Prerequisites
+Node.js and npm (or yarn) installed
+
+
+# Configuration
+Create a .env file in the project root and set the following environment variables:
+```
+MAGIC_SECRET=secret123
+JWT_SECRET=secret456
+PORT=3000
+HOST=localhost
+
+```
 
 ## Installation
 
@@ -41,34 +67,37 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Test
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Usage
+For this demo, users are hardcoded. 
+valid email users:
+```
+applaudito@demo.com
+applaudo@demo.com
 ```
 
-## Support
+1. To initiate the login process, make a POST request to `/auth/login` with the user's email address in the request body.
+curl example:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+curl --location 'http://localhost:3000/auth/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "agustin@demomail.com"
+}'
+```
 
-## Stay in touch
+2. Through the Passport MagicLogin Strategy, the application will generate a magic link.
+   -  For the demo you can grab it from the logs.
+   -  Here is where an email provider can be added.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+3. By clicking or call the magic link (you can use postman or similar tools for this), the callback endpoint will authenticate the user and generate a JWT access token.
 
-## License
+4. The user can then use the JWT to access protected routes in the application. example: `/protected` (http://localhost:3030/protected)
 
-Nest is [MIT licensed](LICENSE).
+
+
+
+
